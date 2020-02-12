@@ -4,24 +4,43 @@ import "./App.css";
 
 
 
+class ClassComponent extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick() {
+    alert("You clicked me in class component!");
+  }
+
+  render() {
+    return (
+      <div>
+        <h1 onClick={this.onClick}>I am built using class component</h1>
+      </div>
+    )
+  }
+}
+
+
+function FunctionComponent() {
+
+  const onClick = () => alert("You clicked me in function component!");
+
+  return <h1 onClick={onClick}>I am built using function component</h1>
+}
+
+
+
 function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ClassComponent />
+      <FunctionComponent />
     </div>
   );
 }
