@@ -3,27 +3,56 @@ import logo from "./logo.svg";
 import "./App.css";
 
 
+class ChildComponent extends React.Component {
 
-function App() {
+  componentWillUnmount() {
+    // alert("Component unmounted");
+    console.log("Component unmounted...")
+  }
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  render() {
+    return (
+      <div className="child-component">
+        I am a child component
+      </div>
+    )
+  }
+}
+
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = { showComponent: true }
+
+    console.log("Constructor lifecycle...");
+  }
+
+  componentDidMount() {
+    console.log("Component mounted...");
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("Component updated...");
+  }
+  
+
+
+  render() {
+
+    const { showComponent } = this.state;
+    const buttonLabel = `${(showComponent ? "Hide" : "Show")} child component`;
+
+    return (
+      <div className="App">
+        <button onClick={() => this.setState({ showComponent: !showComponent })}>{buttonLabel}</button>
+
+        {showComponent && <ChildComponent />}
+      </div>
+    );
+  }
 }
 
 export default App;
