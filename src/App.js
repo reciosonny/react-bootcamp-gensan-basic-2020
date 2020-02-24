@@ -2,28 +2,41 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
+    this.state = { txtValue: "", clickedValue: "" };
 
-function App() {
+    this.onChangeText = this.onChangeText.bind(this);
+    this.onClicked = this.onClicked.bind(this);
+  }
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  componentDidMount() {}
+
+  onChangeText(e) {
+    this.setState({ txtValue: e.target.value });
+  }
+
+  onClicked() {
+    this.setState({ clickedValue: "You clicked a button" });
+  }
+
+  render() {
+    return (
+      <div className="App">
+
+        <h1>State demo</h1>
+
+        
+        <input type="text" onChange={this.onChangeText} />
+        <h1>Value: {this.state.txtValue}</h1>
+
+        {/*<button onClick={this.onClicked}>Click me</button>
+        <h1>{this.state.clickedValue}</h1>*/}
+      </div>
+    );
+  }
 }
 
 export default App;
