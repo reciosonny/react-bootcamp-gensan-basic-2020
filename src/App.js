@@ -4,26 +4,32 @@ import "./App.css";
 
 
 
-function App() {
+class App extends React.Component {
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  constructor(props) {
+    super(props);
+
+    this.state = { showTitle: false };
+
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick() {
+    const { showTitle } = this.state;
+    this.setState({ showTitle: !showTitle });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Conditional rendering demo</h1>
+        <button onClick={this.onClick}>Click me</button>
+        {this.state.showTitle && <h1>I'm here</h1>}
+      </div>
+    );
+  }
 }
+
+
 
 export default App;
