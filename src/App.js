@@ -3,27 +3,37 @@ import logo from "./logo.svg";
 import "./App.css";
 
 
+// TODO: demo it in functional components as well (live-coding)
+class App extends React.Component {
 
-function App() {
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  onChangeText(e) {
+    console.log("onChange event is triggered");
+  }
+
+  onClick(e) {
+    console.log("onClick event is triggered");
+  }
+
+  onClickButton(e) {
+    alert("You clicked the button");
+  }
+
+  render() {
+    return (
+      <div className="App">
+  
+        <h1>Testing event handlers</h1>
+        <input type="text" placeholder="" onClick={this.onClick} onChange={this.onChangeText} />
+
+        <br/><br/>
+        <button onClick={this.onClickButton}>Click me</button>
+      </div>
+    );
+    }
 }
+
+
+
 
 export default App;
