@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PersonalDetailsComponent = (props) => {
+const PersonalDetails = (props) => {
 
   return (
     <div>
@@ -16,4 +16,4 @@ const PersonalDetailsComponent = (props) => {
 
 
 
-export default PersonalDetailsComponent;
+export default PersonalDetails;
