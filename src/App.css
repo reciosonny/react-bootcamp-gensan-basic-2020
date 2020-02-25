@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+  padding: 8em;
 }
 
 .App-logo {
@@ -35,4 +36,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.img-opacity-overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  /* background: green; */
+  z-index: 100;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
