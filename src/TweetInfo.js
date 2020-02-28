@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 export default class TweetInfo extends Component {
 
@@ -12,10 +13,26 @@ export default class TweetInfo extends Component {
     this.onDeleteTweet = this.onDeleteTweet.bind(this);
   }
 
-  onToggleTweet() {
-    const { likedTweet } = this.state;
+  componentDidMount() {
+    console.log("Component mounted...");
+    const { usernamesLiked, loggedInUsername, numLikes } = this.props;
 
-    this.setState({ likedTweet: !likedTweet });
+    this.setState({ numLikes: numLikes, likedTweet: usernamesLiked.some(username => username === loggedInUsername) });
+  }
+
+  onToggleTweet() {
+    const { likedTweet, numLikes } = this.state;
+    const { usernamesLiked, loggedInUsername, id } = this.props;
+
+    // TODO: ajax calls here.
+    axios
+    .put(`https://twittercloneph-api.herokuapp.com/api/tweets/toggletweetlike`, { username: loggedInUsername, id: id })
+    .then(res => console.log("success!"));
+
+    const toggleLikeTweet = !likedTweet;
+    const numLikesResult = numLikes + (toggleLikeTweet ? +1 : -1);
+    
+    this.setState({ likedTweet: toggleLikeTweet, numLikes: numLikesResult });
   }
 
   onToggleTweetActions() {
@@ -33,8 +50,8 @@ export default class TweetInfo extends Component {
 
   render() {
 
-    const { username, tweet, numLikes } = this.props;
-    const { likedTweet, showTweetActions } = this.state;
+    const { username, loggedInUsername, tweet } = this.props;
+    const { likedTweet, showTweetActions, numLikes } = this.state;
 
     return (
       <div className="row">
@@ -42,7 +59,7 @@ export default class TweetInfo extends Component {
           <i class="fas fa-user fa-2x"></i>
         </div>
         <div className="col s8">
-          <h5 style={{ margin: "0" }}>{username}</h5>
+          <h5 style={{ margin: "0", fontWeight: "700" }}>{username}</h5>
 
           <div style={{ marginTop: "10px" }}>{tweet}</div>
 
@@ -54,7 +71,9 @@ export default class TweetInfo extends Component {
           </div>
         </div>
         <div className="col s2" style={{ position: "relative" }}>
-          <i class="fas fa-angle-down" style={{ cursor: "pointer" }} onClick={this.onToggleTweetActions}></i>
+          {loggedInUsername === username && 
+            <i class="fas fa-angle-down" style={{ cursor: "pointer" }} onClick={this.onToggleTweetActions}></i>
+          }
 
           {showTweetActions && <div className="tweet-actions z-depth-4">
             <span style={{ fontSize: "20px", cursor: "pointer", color: "#e53935" }} onClick={this.onDeleteTweet}>

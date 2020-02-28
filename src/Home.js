@@ -9,18 +9,27 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { tweets: [] };
+    this.state = { tweets: [], showProgressbar: true };
 
     this.onSubmitTweet = this.onSubmitTweet.bind(this);
     this.onDeleteTweet = this.onDeleteTweet.bind(this);
   }
 
+
+
   componentDidMount() {
     // TODO: put ajax calls here for getting tweets
 
     axios.get("https://twittercloneph-api.herokuapp.com/api/tweets").then(x => {
-      this.setState({ tweets: x.data });
+      this.setState({ tweets: x.data, showProgressbar: false });
     });
+
+    setInterval(() => {
+      axios.get("https://twittercloneph-api.herokuapp.com/api/tweets").then(x => {
+        this.setState({ tweets: x.data });
+      });
+
+    }, 3000);
   }
 
   onSubmitTweet(tweet) {
@@ -28,9 +37,10 @@ export default class Home extends Component {
     const { tweets } = this.state;
     const { username } = this.props;
 
-    const newTweetLists = tweets.concat([
+    const newTweetLists = tweets.precat([
       { id: uuid(), username: username, tweet: tweet }
     ]);
+
     this.setState({ tweets: newTweetLists });
   }
 
@@ -38,6 +48,9 @@ export default class Home extends Component {
     const { tweets } = this.state;
 
     // TODO: ajax calls here too for deleting
+    axios
+      .delete(`https://twittercloneph-api.herokuapp.com/api/tweets/${id}`)
+      .then(res => console.log("success!"));
 
     const newTweetLists = tweets.filter(tweet => tweet.id !== id);
 
@@ -46,7 +59,7 @@ export default class Home extends Component {
 
   render() {
     const { username } = this.props;
-    const { tweets } = this.state;
+    const { tweets, showProgressbar } = this.state;
 
     return (
       <div>
@@ -56,12 +69,27 @@ export default class Home extends Component {
 
         <div className="row">
           <div class="input-field col s6 offset-s3">
+
+            {/*If tweets weren't loaded yet, show progressbar */}
+            {showProgressbar && (
+              <div className="row">
+                <div className="col s10">
+                  <div className="progress">
+                    <div className="indeterminate"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {tweets.map(data => (
               <TweetInfo
+                key={data.id}
                 id={data.id}
                 username={data.username}
                 tweet={data.tweet}
                 numLikes={data.numLikes}
+                usernamesLiked={data.usernamesLiked}
+                loggedInUsername={username}
                 onDeleteTweet={this.onDeleteTweet}
               />
             ))}

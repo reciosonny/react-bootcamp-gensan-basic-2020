@@ -4,6 +4,16 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// user-defined function
+Object.defineProperty(Array.prototype, 'precat', {
+  configurable: true,
+  writable: true,
+  value: function precat() {
+    return Array.prototype.concat.call([], ...arguments, this)
+  }
+});
+
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 const rootEl = document.getElementById('root');
