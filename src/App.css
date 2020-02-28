@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+  padding: 50px 250px;
 }
 
 .App-logo {
@@ -26,6 +27,26 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.profile-picture {
+  user-select: auto;
+  border-radius: 50%;
+  border: 1px solid #00ACED;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.tweet-actions {
+  height: 200px;
+  width: 200px;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: -13em;
+  background-color: #ffffff;
 }
 
 @keyframes App-logo-spin {
