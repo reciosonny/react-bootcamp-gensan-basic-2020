@@ -17,7 +17,9 @@ export default class TweetInfo extends Component {
     console.log("Component mounted...");
     const { usernamesLiked, loggedInUsername, numLikes } = this.props;
 
-    this.setState({ numLikes: numLikes, likedTweet: usernamesLiked.some(username => username === loggedInUsername) });
+    const isLikedTweet = usernamesLiked ? usernamesLiked.some(username => username === loggedInUsername) : false;
+
+    this.setState({ numLikes: numLikes, likedTweet: isLikedTweet });
   }
 
   onToggleTweet() {
@@ -55,7 +57,7 @@ export default class TweetInfo extends Component {
 
     return (
       <div className="row">
-        <div className="col s1 profile-picture">
+        <div className="col s2 profile-picture">
           <i class="fas fa-user fa-2x"></i>
         </div>
         <div className="col s8">

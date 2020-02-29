@@ -45,7 +45,7 @@ export default class YourTweet extends Component {
     const { username } = this.props;
 
     return (
-      <div class="input-field col s5 offset-s3">
+      <div class="input-field col s8 offset-s2">
         {/*<input id="yourtweet" type="text" class="validate" onKeyDown={this.onKeyDown} />*/}
 
         <textarea

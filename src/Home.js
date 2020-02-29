@@ -20,9 +20,13 @@ export default class Home extends Component {
   componentDidMount() {
     // TODO: put ajax calls here for getting tweets
 
-    axios.get("https://twittercloneph-api.herokuapp.com/api/tweets").then(x => {
-      this.setState({ tweets: x.data, showProgressbar: false });
-    });
+    setTimeout(() => {
+            
+      axios.get("https://twittercloneph-api.herokuapp.com/api/tweets").then(x => {
+        this.setState({ tweets: x.data, showProgressbar: false });
+      });
+    }, 3000);
+
 
     setInterval(() => {
       axios.get("https://twittercloneph-api.herokuapp.com/api/tweets").then(x => {
@@ -68,12 +72,12 @@ export default class Home extends Component {
         </div>
 
         <div className="row">
-          <div class="input-field col s6 offset-s3">
+          <div class="input-field col s8 offset-s2">
 
             {/*If tweets weren't loaded yet, show progressbar */}
             {showProgressbar && (
               <div className="row">
-                <div className="col s10">
+                <div className="col s12">
                   <div className="progress">
                     <div className="indeterminate"></div>
                   </div>

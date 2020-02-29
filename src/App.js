@@ -31,7 +31,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="row">
-          <div className="col s5 offset-s3">
+          <div className="col s8 offset-s2">
             <h2>Twitter Clone</h2>
           </div>
         </div>
@@ -39,7 +39,7 @@ class App extends React.Component {
         {!loggedIn && (
           <div className="row">
             <form onSubmit={this.onLogin}>
-              <div class="input-field col s5 offset-s3">
+              <div class="input-field col s8 offset-s2">
                 <input
                   type="text"
                   id="enterusername"
